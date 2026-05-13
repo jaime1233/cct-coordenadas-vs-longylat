@@ -19,6 +19,7 @@ if file:
     
     col1, col2 = st.columns(2)
     with col1:
+        c_cct = st.selectbox("Columna CCT: (CLAVECCT)", df.columns, index=list(df.columns).index('CLAVECCT') if 'CLAVECCT' in df.columns else 0)
         c_via = st.selectbox("Calle (IC_VIA):", df.columns, index=list(df.columns).index('IC_VIA') if 'IC_VIA' in df.columns else 0)
         c_next = st.selectbox("Número Ext (I_NEXT):", df.columns, index=list(df.columns).index('I_NEXT') if 'I_NEXT' in df.columns else 0)
         c_mun = st.selectbox("Municipio (IC_MUN):", df.columns, index=list(df.columns).index('IC_MUN') if 'IC_MUN' in df.columns else 0)
@@ -60,4 +61,4 @@ if file:
             except:
                 df.at[i, 'VEREDICTO'] = "⚠️ ERROR RED"
 
-        st.dataframe(df[[c_via, c_next, 'DISTANCIA_M', 'VEREDICTO']])
+        st.dataframe(df[[c_cct,c_via, c_next, 'DISTANCIA_M', 'VEREDICTO']])
