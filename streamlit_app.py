@@ -22,6 +22,8 @@ if file:
         c_via = st.selectbox("Calle (IC_VIA):", df.columns, index=list(df.columns).index('IC_VIA') if 'IC_VIA' in df.columns else 0)
         c_next = st.selectbox("Número Ext (I_NEXT):", df.columns, index=list(df.columns).index('I_NEXT') if 'I_NEXT' in df.columns else 0)
         c_mun = st.selectbox("Municipio (IC_MUN):", df.columns, index=list(df.columns).index('IC_MUN') if 'IC_MUN' in df.columns else 0)
+        c_est = st.selectbox("Municipio (IC_ENT):", df.columns, index=list(df.columns).index('IC_ENT') if 'IC_ENT' in df.columns else 0)
+        c_cp = st.selectbox("Código Postal (I_CVCP):", df.columns, index=list(df.columns).index('I_CVCP') if 'I_CVCP' in df.columns else 0)
     with col2:
         c_lat_orig = st.selectbox("Latitud (I_LAT):", df.columns, index=list(df.columns).index('I_LAT') if 'I_LAT' in df.columns else 0)
         c_long_orig = st.selectbox("Longitud (I_LONG):", df.columns, index=list(df.columns).index('I_LONG') if 'I_LONG' in df.columns else 0)
@@ -39,7 +41,11 @@ if file:
             num_ext = str(row[c_next]).strip()
             calle_completa = f"{row[c_via]} {num_ext}" if num_ext not in ['0', 'SN', 'nan', 'None'] else str(row[c_via])
             
-            query = {"street": calle_completa, "city": str(row[c_mun]), "country": "Mexico"}
+            query = {"street": calle_completa, 
+                     "city": str(row[c_mun]), 
+                     "postalcode": str(row[c_cp]).split('.')[0], # Limpiar si viene como float (ej. 55000.0)
+                     "state": str(row[c_est]), 
+                     "country": "Mexico"}
             
             try:
                 time.sleep(1.2)
