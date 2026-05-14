@@ -1,0 +1,7 @@
+[server]
+enableCORS = false
+enableXsrfProtection = false
+endpointPrefix = ""
+
+[browser]
+gatherUsageStats = false
